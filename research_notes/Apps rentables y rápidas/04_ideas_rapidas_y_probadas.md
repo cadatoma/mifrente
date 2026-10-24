@@ -83,14 +83,33 @@ Build times assume an experienced SwiftUI developer using Claude Code who alread
 | 9 | **Private AI journal** (on-device FM prompts, summaries, mood, no account) | Apple promoted Stoic (journaling prompts via FM). **No revenue figure found** | Prompts, streaks, insights | Privacy plus zero API cost lets a one-time price work | **1–2 weeks** | $0 (FM on device) | FM 4K–8K context limits long-history summaries. PCC gives 32K | Low |
 | 10 | **Habit/streak tracker** | Habit Pixel: $1K MRR after 8 months | Widgets, streaks | Saturated. Only works as part of a portfolio | 1 week | $0 | Low | 4.3 risk high |
 
-Ranking for this developer (inference): best mix of proof, small scope and differentiation = #1 cleaner (biggest category, but marketing-heavy), #4 blocker + NFC, #5 quit counter, #7 bilingual invoices, #2 coin identifier in Spanish, #6 teleprompter. #3 calorie AI has the strongest proof of revenue, but in 2026 it is an ad-spend race against an incumbent owned by MyFitnessPal.
+#### How users would find each idea (the developer's bottleneck is traffic, not conversion)
 
-- Collision check: none of the shortlist overlaps CadaToma (medications), Daywitness, AxleSet, ScrubCert, the Mac PDF editor or the Mac photo enhancer. #3 and #5 are health-adjacent like CadaToma, but they are different products.
+All of this is inference. **No keyword search-volume data was obtained in this research** (it needs an ASO tool such as Appfigures, AppTweak or Astro, so see Gaps). The judgment rests on whether the job is something users type into App Store search ("search intent") or something they only discover after seeing it ("discovery/viral"). It also assumes, without measurement, that generic utility keywords have high volume.
+
+| # | Concept | Main discovery channel | Example searches (EN / ES) | Organic-search fit for him |
+|---|---|---|---|---|
+| 7 | Bilingual invoice/estimate maker | **App Store search** (high-intent utility). Also web SEO for "estimate template" | "invoice maker", "estimate app", "factura", "estimado", "presupuesto" | **High.** Users search for it by name. Bilingual is a long-tail keyword angle. Adjacent to his Tipstack (Finance, tradespeople/gig workers), so it can be cross-promoted from it without duplicating it |
+| 6 | Teleprompter iPhone+Mac | **App Store search** on iOS and Mac (the Mac App Store has less competition) | "teleprompter", "teleprompter para video" | **High.** Pure search intent. The Mac version doubles the storefronts |
+| 2 | Coin / rock identifier (Spanish-first) | **App Store search** + TikTok demos | "coin identifier", "coin value", "identificar monedas", "valor de monedas", "rock identifier" | **High for ES keywords** (assumed less competition). Medium in EN (crowded) |
+| 1 | Storage/photo cleaner | Search ("cleaner", "storage") but **heavily bid on Apple Search Ads** by incumbents (inference from the category's size) | "cleaner", "limpiar fotos", "duplicate photos" | **Medium.** The traffic exists but top positions are contested. Spanish "limpiar fotos" keywords may be easier |
+| 5 | Quit/sobriety counter | Search + Reddit/recovery communities | "quit smoking", "sober counter", "dejar de fumar", "días sin fumar" | **Medium-high.** Clear search intent. Spanish versions look thin (unverified) |
+| 4 | App blocker + NFC | Search + TikTok ("I glued an NFC tag to my door") | "app blocker", "screen time", "bloquear apps" | **Medium.** Big keyword but Opal, one sec and others own it. NFC/"brick" content is TikTok-friendly |
+| 8 | Spanish devotional | Search ("biblia", "devocional", "oración") + church/WhatsApp sharing | "devocional diario", "oración del día", "santo rosario" | **Medium.** High volume but dominated by YouVersion/Hallow. Long-tail prayer keywords (rosary, novenas, saints of the day) are likely more winnable |
+| 3 | Calorie AI (Spanish food) | **TikTok/UGC** first, search second | "calorie counter", "contar calorías" | **Low–medium.** The category's winners grew through content, not search |
+| 9 | Private AI journal | Search is weak ("journal" is generic). Apple featuring possible for FM showcases | "diario", "journal" | **Low** without a feature or content |
+| 10 | Habit tracker | Search but saturated | "habit tracker" | **Low** |
+
+Revised ranking for this developer, weighting organic search demand (inference): **#7 bilingual invoice/estimate maker, #6 teleprompter (iOS+Mac), #2 Spanish-first coin/rock identifier, #5 quit counter (ES+EN), #1 photo cleaner (only with a Spanish-first ASO angle), #4 NFC blocker.** #3 calorie AI has the strongest revenue proof, but it is a content/ad-spend race against an incumbent owned by MyFitnessPal, which is a poor fit for someone whose problem is traffic.
+
+- Collision check against his full catalog: no direct duplicates. #7 (invoices) sits next to Tipstack (tips & hours) in Finance but does a different job, so treat it as a cross-promotion opportunity. #5 (quit counter) and #3 (calorie) are health-adjacent like CadaToma but are different products. Tidebook (tides), Orejita, the exam-prep line (Aprueba/CDL, Texas Electrician, Cosmetology, ScrubCert), Daywitness, AxleSet and the planned Mac PDF/photo apps do not overlap the shortlist.
+- Out of scope, but noted: his licensing exam-prep line (driver's license, CDL, electrician, cosmetology, MA) is itself a search-intent archetype ("CDL practice test", "examen de licencia"). Extending it to other state/trade licenses reuses his existing engine with near-zero new build. No revenue data was gathered for it here.
 
 ### Gaps
 - No verified revenue found for One sec, Brick, Zero (fasting), Huckleberry or other baby trackers, homework helpers (Gauth/Photomath-type), receipt scanners, voice-memo-to-text apps, AI headshot apps, widget-customization apps, step/walking apps or language/flashcard apps. Their potential could not be quantified here. Other researchers covering market revenue may have figures.
 - The Appfigures cleaner and identifier figures are from mid-2025, and no 2026 update was found.
 - No data found on revenue from Spanish-speaking/LatAm users for any category.
+- **No App Store keyword search-volume or difficulty data** was obtained for any of the example searches (EN or ES). The "organic-search fit" column is a qualitative judgment and should be checked with an ASO tool before building.
 
 ---
 
