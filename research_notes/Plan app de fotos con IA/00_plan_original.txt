@@ -1,0 +1,286 @@
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+Plan MVP: app de mejora de fotos con IA para
+Mac
+  ​Oct 19, 2026       · ​@Rafael Vasquez
+
+
+Resumen
+Una app nativa de Mac que reduce ruido, amplía y enfoca fotos con IA, todo procesado en
+el equipo del usuario y vendida con pago único. Sin servidores, el costo por usuario es casi
+cero.
+
+Por qué ahora: Topaz, el líder en esta categoría, pasó a suscripción en octubre de 2025, y
+Adobe acordó comprarlo en junio de 2026. Muchos fotógrafos lo usaban justamente para
+no depender de Adobe y hoy buscan una alternativa de pago único.
+
+Para quién: fotógrafos aficionados avanzados y profesionales de bodas, eventos y
+deportes que trabajan en Mac con chip Apple (M1 o superior) y disparan con ISO alto o
+necesitan ampliar recortes.
+
+Promesa en una línea: "Fotos limpias y nítidas en segundos, en tu Mac, sin suscripción."
+
+
+Funciones del MVP (v1.0)
+La v1.0 hace tres cosas muy bien y nada más: reducir ruido, ampliar y procesar en lote.
+
+
+  Función                              Qué hace                            Por qué entra en v1.0
+
+  Reducir ruido                        Limpia fotos con ISO alto, con un   Es la razón principal por la que
+                                       control de intensidad               se compra Topaz
+
+  Ampliar 2x y 4x                      Aumenta resolución sin pixelar      Segunda razón de compra;
+                                                                           recortes y prints
+
+  Enfocar suave                        Recupera detalle leve, mezclable    Se logra casi gratis al combinar
+                                       con el original                     modelos
+
+  Antes/después                        Vista dividida con zoom 100%        Es lo que convence en la prueba
+                                       sincronizado                        gratis
+
+  Lote                                 Arrastrar una carpeta y procesar    Lo piden fotógrafos de eventos
+                                       todo en cola
+
+
+
+
+                                                                                                        Page 1 of 6
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+  Función                              Qué hace                                      Por qué entra en v1.0
+
+  Formatos                             Entrada JPEG, HEIC, PNG, TIFF y               Sin RAW no lo toman en serio
+                                       RAW; salida JPEG, TIFF 16 bits y
+                                       PNG
+
+  Conservar                            Copia EXIF, GPS y perfil de color al          Evita quejas y devoluciones
+  metadatos                            archivo nuevo
+
+
+Queda fuera de v1.0: video, plugins para Lightroom/Photoshop, retoque de caras, quitar
+objetos, IA generativa en la nube y versión de iPad. Se evalúan para v1.5 y v2.
+
+
+Modelos open source y licencias
+Hay cuatro modelos serios que permiten uso comercial; con ellos se cubre la v1.0 sin
+entrenar nada propio.
+
+
+  Modelo                                           Uso en la app                        Licencia       Uso comercial
+
+  SCUNet                                           Reducir ruido real de cámara         Apache 2.0     Sí, citando
+                                                   (modelo principal)                                  autoría
+
+  NAFNet                                           Ruido y desenfoque; alternativa      MIT            Sí, citando
+                                                   más ligera                                          autoría
+
+  Real-ESRGAN (realesr-                            Ampliar 4x, rápido y pequeño         BSD-3-         Sí, citando
+  general-x4v3)                                                                         Clause         autoría
+
+  SwinIR                                           Ampliar con más calidad (modo        Apache 2.0     Sí, citando
+                                                   "Alta calidad")                                     autoría
+
+
+Evitar: la mayoría de modelos comunitarios de OpenModelDB (4x-UltraSharp, Remacri,
+etc.) son CC-BY-NC-SA, solo uso no comercial. También CodeFormer (retoque de caras,
+licencia no comercial) y los pesos de RIFE.
+
+Regla: revisar el archivo LICENSE del repositorio original de cada peso antes de incluirlo, y
+poner una pantalla de "Reconocimientos" en la app con las licencias.
+
+
+Arquitectura técnica
+App nativa en Swift y SwiftUI para macOS 14 o superior con chip Apple; los modelos van
+dentro de la app y nada sale a internet.
+
+
+
+
+                                                                                                                   Page 2 of 6
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+flujo de procesamiento · 6 pasos en la Mac del usuario
+
+La foto se divide en bloques porque los modelos trabajan con tamaños fijos; así corren en
+el Neural Engine y una foto de 45 MP no agota la memoria. Si un modelo no es compatible
+con el Neural Engine, Core ML lo pasa a la GPU automáticamente.
+
+
+Plan de trabajo con Claude Code
+Estimado: 10 a 12 semanas a medio tiempo hasta la v1.0 pública. Son estimaciones propias;
+el tramo que más puede alargarse es la fase 1.
+
+ 1. Semanas 1–2 · Prueba de modelos. Convertir SCUNet y Real-ESRGAN a Core ML con
+    coremltools en Python. Medir calidad y velocidad en tu Mac con 20 fotos reales de ISO
+     alto. Si no convencen, probar NAFNet y SwinIR.
+ 2. Semanas 3–5 · Motor de procesamiento. Lector de imágenes y RAW, división en
+    bloques (tiles), ejecución en Core ML y unión sin costuras. Pruebas automáticas de
+     memoria con fotos de 45 MP.
+ 3. Semanas 6–7 · Interfaz. Ventana en SwiftUI: arrastrar fotos, controles por modelo, vista
+    antes/después y exportar.
+ 4. Semana 8 · Lote y metadatos. Cola de procesamiento, cancelar y reanudar, copia de
+     EXIF y perfil de color.
+ 5. Semana 9 · Licencias y pagos. Versión de prueba con marca de agua, compra por
+     Paddle o Mac App Store, activación.
+ 6. Semanas 10–12 · Beta y lanzamiento. 30 a 50 fotógrafos con TestFlight o descarga
+     directa, corregir errores, página web, notarización de Apple y lanzamiento.
+
+
+
+
+                                                                                       Page 3 of 6
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+Cómo usar Claude Code aquí: un repositorio con dos carpetas ( models/ en Python para
+convertir, app/ en Swift). Pedirle tareas cerradas por fase, con pruebas, y revisar tú cada
+resultado en Xcode con fotos reales.
+
+
+Precio y canales de venta
+Propuesta: $59 de pago único, con precio de lanzamiento de $39 el primer mes. Prueba
+gratis con marca de agua.
+
+
+  Opción                                    Precio                 Qué incluye
+
+  Prueba                                    $0                     Todas las funciones, exporta con marca de
+                                                                   agua
+
+  Licencia                                  $59 (lanzamiento       Uso para siempre, 2 Macs, actualizaciones
+                                            $39)                   de la versión 1.x
+
+  Pase de                                   $29 al año, opcional   Versiones mayores y modelos nuevos; si no
+  actualizaciones                                                  lo renuevas, te quedas con lo que tienes
+
+
+Canales:
+
+     Web propia con Paddle (principal): cobra cerca de 5% + $0.50 por venta y maneja
+     impuestos de cada país. Permite cupones, descuentos por volumen y cobrar el pase de
+     actualizaciones.
+     Mac App Store (secundario): 15% con el Small Business Program, más visibilidad, pero
+     obliga sandbox y no maneja bien las actualizaciones pagadas. Útil como escaparate.
+     Setapp (más adelante): ingreso recurrente por uso; evaluarlo después del
+     lanzamiento.
+
+
+Costos y punto de equilibrio
+Con todo en el equipo del usuario, los costos son casi fijos: unos $600 a $850 el primer año,
+sin contar tu tiempo ni tu plan de Claude. Con unas 16 ventas a $59 se cubren.
+
+
+  Concepto                                     Costo aproximado    Nota
+
+  Apple Developer                              $99/año             Ya lo pagas
+
+  Dominio y web estática                       $15–$240/año        Cloudflare Pages o similar puede ser gratis
+
+  Paddle                                       5% + $0.50 por      Sin mensualidad
+                                               venta
+
+
+
+
+                                                                                                          Page 4 of 6
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+  Concepto                                     Costo aproximado    Nota
+
+  Publicidad de                                $300–$500           Opcional; foros y YouTube de fotografía
+  lanzamiento                                                      rinden más
+
+  Servidores de IA                             $0                  Todo corre en la Mac del cliente
+
+
+Ingreso neto por venta: te quedan $55.55 de cada venta de $59 por Paddle, $36.55 de cada
+venta de $39 en lanzamiento, y $50.15 de cada venta de $59 en la Mac App Store.
+
+Escenarios por Paddle a $59 (no son predicciones):
+
+
+  Ventas en el año                 Ingreso neto
+
+  100                              $5,555
+
+  500                              $27,775
+
+  1,000                            $55,550
+
+
+
+
+Riesgos y cómo mitigarlos
+El riesgo principal es la calidad frente a Topaz; los demás son manejables.
+
+
+  Riesgo                                                   Impacto    Mitigación
+
+  Calidad por debajo de Topaz                              Alto       Decidir en la semana 2 con
+                                                                      comparaciones lado a lado; competir en
+                                                                      precio, velocidad y privacidad, no
+                                                                      prometer "mejor que Topaz"
+
+  Modelos que no corren bien en el                         Medio      Formas de entrada fijas, precisión de 16
+  Neural Engine                                                       bits y recurrir a la GPU si hace falta
+
+  Memoria con fotos grandes                                Medio      Procesar por bloques y liberar memoria
+                                                                      entre bloques
+
+  Licencia de algún peso mal leída                         Alto       Revisar el LICENSE original de cada
+                                                                      peso antes de incluirlo
+
+  Adobe baja precios o mete las                            Medio      Tu cliente es el que no quiere
+  funciones de Topaz en Lightroom                                     suscripción; eso no cambia
+
+  Piratería                                                Bajo       Activación ligera y precio justo; no
+                                                                      gastar tiempo en DRM fuerte
+
+
+
+
+                                                                                                             Page 5 of 6
+Plan MVP: app de mejora de fotos con IA para Mac
+
+
+
+
+Próximos pasos
+     Reunir 20 fotos propias o de amigos con ISO alto y 10 recortes pequeños para pruebas
+     Crear el repositorio con models/ y app/ y pedir a Claude Code la conversión de
+     SCUNet a Core ML
+     Comparar resultados contra Lightroom Denoise y la prueba gratis de Topaz
+     Decidir sí o no al final de la semana 2
+     Elegir nombre y registrar el dominio
+     Abrir una lista de espera simple en la web para medir interés
+
+
+Fuentes
+     Adobe compra Topaz; Topaz pasó a suscripción en oct. 2025 — PhotoWorkout
+     Reacción de fotógrafos — Fstoppers
+     SCUNet, licencia Apache 2.0 — Hugging Face
+     NAFNet (MIT) y SwinIR (Apache 2.0) — Hugging Face
+     Real-ESRGAN general x4v3, BSD-3 — OpenModelDB
+     Licencias de modelos comunitarios — Hugging Face
+     Core ML Tools FAQ — Apple
+
+
+
+
+                                                                                      Page 6 of 6
+
