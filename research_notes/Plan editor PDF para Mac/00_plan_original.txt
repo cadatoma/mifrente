@@ -1,0 +1,311 @@
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+Plan MVP: editor de PDF sencillo para Mac
+  ​Oct 19, 2026        · ​@Rafael Vasquez
+
+
+Resumen
+Una app nativa de Mac para las tareas de PDF que la gente hace cada semana: llenar
+formularios, firmar, organizar páginas, comprimir y hacer OCR. Pago único de $29.99, sin
+cuenta ni nube.
+
+El hueco: Acrobat Pro cuesta $19.99 al mes, unos $240 al año, y la mayoría lo usa para
+tareas básicas. Las alternativas de pago único ya existen, pero cuestan entre $79.99 y
+$149.99 y están llenas de funciones de IA que muchos no piden. No hay una opción buena,
+simple y de menos de $30 que haga más que Vista Previa.
+
+Ventaja concreta: el OCR. Acrobat Standard no lo incluye, y la versión de UPDF en la Mac
+App Store tampoco. Con el framework Vision de Apple, el OCR funciona dentro del
+sandbox de la App Store y sin costo por uso.
+
+Para quién: profesionales independientes, oficinas pequeñas, estudiantes y cualquier
+usuario de Mac que solo abre Acrobat para firmar o llenar algo.
+
+No compite en: edición profunda del texto original del PDF ni conversión a Word, que es
+donde los grandes invierten años.
+
+
+Funciones del MVP (v1.0)
+La v1.0 cubre las cinco tareas frecuentes y deja fuera la edición profunda del PDF.
+
+
+  Función                             Qué hace                            Por qué entra en v1.0
+
+  Llenar                              Campos interactivos y texto libre   Es la tarea más común después
+  formularios                         sobre PDFs planos                   de leer
+
+  Firmar                              Firma dibujada, escrita o desde     Lo que hace que la gente abra
+                                      imagen; guardada en el llavero de   Acrobat
+                                      la Mac
+
+  Organizar                           Unir, dividir, reordenar, rotar,    Vista Previa lo hace torpe con
+  páginas                             borrar e insertar                   archivos grandes
+
+  OCR                                 Convierte escaneos en PDF con       Diferencia clara frente a Acrobat
+                                      texto buscable y copiable           Standard y UPDF en App Store
+
+
+
+
+                                                                                                       Page 1 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+  Función                             Qué hace                             Por qué entra en v1.0
+
+  Comprimir                           Reduce el tamaño para correo y       Petición constante en foros
+                                      portales, con niveles
+
+  Anotar                              Resaltar, subrayar, notas, texto y   Básico esperado
+                                      formas
+
+  Proteger                            Contraseña y quitar metadatos        Pedido por oficinas y abogados
+
+  Escáner desde                       Captura de documentos con            Casi gratis con macOS y muy
+  iPhone                              Continuity Camera                    visible
+
+
+Queda fuera de v1.0: editar el texto original del PDF, convertir a Word o Excel, tachado
+legal (redacción) certificado, firmas digitales con certificado, chat con IA y versión de
+iPad. Se evalúan para v1.5 y v2.
+
+
+Competencia en Mac
+Todos los rivales de pago único cuestan $79.99 o más en precio regular; el espacio por
+debajo de $30 está vacío.
+
+
+  App                            Precio                   Modelo             Nota clave
+
+  Acrobat                        $14.99/mes               Suscripción        Sin OCR
+  Standard                                                anual
+
+  Acrobat Pro                    $19.99/mes ($29.99       Suscripción        Unos $240 al año
+                                 mes a mes)               anual
+
+  PDF Expert                     $139.99 (ofertas a       Pago único o       El favorito de Mac; funciones
+                                 $79.99)                  suscripción        mayores futuras pueden costar
+                                                                             extra
+
+  PDFelement                     $79.99 Standard,         Pago único en      Mucha IA; Wondershare
+                                 $119.99 Pro              App Store
+
+  UPDF                           $149.99 (ofertas a       Pago único         Multiplataforma; sin OCR en la
+                                 $69.99)                                     versión de App Store
+
+  Vista Previa                   Gratis                   Incluida en        Firma y une páginas, pero no
+                                                          macOS              crea PDFs buscables desde
+                                                                             escaneos ni comprime con
+                                                                             control
+
+
+Lectura: a $29.99 eres la compra impulsiva entre "gratis pero limitado" y "$80 o más".
+
+
+
+                                                                                                         Page 2 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+Arquitectura técnica
+App nativa en Swift y SwiftUI para macOS 14 o superior, sin librerías externas de pago:
+PDFKit, Vision y el llavero vienen con macOS.
+
+
+
+
+arquitectura · 6 módulos sobre PDFKit
+
+El OCR agrega una capa de texto invisible sobre cada página escaneada, así el PDF se
+puede buscar y copiar sin cambiar su aspecto. Todo cambio se escribe primero en una
+copia; si algo falla, el original queda intacto.
+
+
+Plan de trabajo con Claude Code
+Estimado: 8 a 10 semanas a medio tiempo hasta la v1.0. Es más corto que la app de fotos
+porque Apple ya resuelve la parte difícil (PDFKit y Vision). Son estimaciones propias.
+
+ 1. Semana 1 · Base. Proyecto en SwiftUI con documento PDF, visor con miniaturas y
+     guardado seguro. Probar con 30 PDFs reales: formularios del gobierno, escaneos,
+     contratos largos.
+ 2. Semanas 2–3 · Organizar y anotar. Unir, dividir, reordenar, rotar e insertar páginas;
+     resaltar, notas, texto y formas.
+ 3. Semana 4 · Formularios y firma. Llenado de campos, texto libre en PDFs planos, firmas
+     guardadas en el llavero.
+
+
+                                                                                        Page 3 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+ 4. Semanas 5–6 · OCR y compresión. OCR con Vision en segundo plano y por lotes; capa
+     de texto invisible bajo la imagen. Compresión por niveles reprocesando imágenes.
+ 5. Semana 7 · Proteger y escáner. Contraseña, limpiar metadatos y captura con
+    Continuity Camera.
+ 6. Semanas 8–10 · Pagos, beta y lanzamiento. Prueba gratis, compra, 30 a 50 testers,
+     corrección de errores, web y envío a App Store.
+
+Cómo usar Claude Code aquí: pedirle una función por sesión, siempre con pruebas que
+abran y guarden PDFs reales de tu carpeta de prueba. El riesgo de PDFs corruptos se
+controla con esas pruebas, no con revisiones a ojo.
+
+
+Precio y canales de venta
+Propuesta: $29.99 de pago único, $19.99 el primer mes de lanzamiento. A diferencia de la
+app de fotos, aquí la Mac App Store va primero.
+
+
+  Opción                            Precio                Qué incluye
+
+  Gratis                            $0                    Ver, anotar y organizar; firma, OCR y
+                                                          compresión con marca de agua
+
+  Licencia                          $29.99 (lanzamiento   Todo, para siempre, en tus Macs
+  personal                          $19.99)
+
+  Licencia de                       $99                   Hasta 5 personas
+  oficina
+
+
+Canales:
+
+     Mac App Store (principal): la gente busca "PDF" directamente ahí y desconfía de
+     descargar editores de PDF de webs desconocidas. Apple cobra 15% con el Small
+     Business Program. El OCR con Vision funciona dentro del sandbox, que es justo lo que
+     le falta a UPDF en la tienda.
+     Web con Paddle (secundario): para la licencia de oficina, facturas y cupones; cerca de
+     5% + $0.50 por venta.
+     Fuera de la tienda más adelante: bundles como Setapp, y acuerdos con universidades
+     u oficinas.
+
+
+
+
+                                                                                                  Page 4 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+Costos y punto de equilibrio
+Los costos fijos son casi iguales a los de la app de fotos, unos $600 a $850 el primer año, y
+se cubren con unas 34 ventas a $29.99. La diferencia es que este producto vive de
+volumen.
+
+
+  Concepto                                    Costo aproximado   Nota
+
+  Apple Developer                             $99/año            Ya lo pagas
+
+  Dominio y web estática                      $15–$240/año       Puede ser gratis con Cloudflare Pages
+
+  Comisión Mac App                            15% por venta      Small Business Program
+  Store
+
+  Paddle (web)                                5% + $0.50 por     Solo licencias de oficina
+                                              venta
+
+  Publicidad de                               $300–$500          Apple Search Ads con palabras como "PDF
+  lanzamiento                                                    editor"
+
+  Servidores                                  $0                 OCR y todo lo demás en la Mac del cliente
+
+
+Ingreso neto por venta: te quedan $25.49 de cada licencia de $29.99 en la App Store,
+$16.99 de cada una de $19.99 en lanzamiento, y $93.55 de cada licencia de oficina de $99
+por Paddle.
+
+Escenarios en App Store a $29.99 (no son predicciones):
+
+
+  Ventas en el año                  Ingreso neto
+
+  500                               $12,745
+
+  2,000                             $50,980
+
+  5,000                             $127,450
+
+
+
+
+Riesgos y cómo mitigarlos
+El riesgo principal es destacar en una categoría llena; el técnico es dañar PDFs de clientes.
+
+
+
+
+                                                                                                         Page 5 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+  Riesgo                                    Impacto   Mitigación
+
+  Mercado lleno, difícil de destacar        Alto      Mensaje simple: "todo lo que Vista
+                                                      Previa no hace, por $29.99"; capturas
+                                                      claras y buenas reseñas desde la beta
+
+  Competidores bajan precio o regalan       Medio     Ya tienen ofertas a $70–$80; a $29.99
+                                                      sigues debajo. No competir con IA
+
+  PDFs dañados o formularios que se         Alto      Guardar siempre en copia y luego
+  pierden                                             reemplazar; banco de 30+ PDFs reales
+                                                      en pruebas automáticas
+
+  Límites de PDFKit (formularios XFA,       Medio     Detectarlos y avisar al usuario en vez de
+  PDFs raros)                                         fallar en silencio
+
+  Rechazo o retraso en revisión de la       Bajo      Tienes experiencia con más de 10 apps;
+  App Store                                           seguir el sandbox desde el día uno
+
+  Ingresos bajos por precio bajo            Medio     Licencia de oficina a $99 y, si va bien,
+                                                      una versión Pro con edición de texto en
+                                                      v2
+
+
+
+
+Próximos pasos
+     Reunir 30 PDFs reales de prueba: formularios oficiales, escaneos, contratos largos y
+     archivos pesados
+     Probar PDF Expert, PDFelement y UPDF una semana y anotar qué molesta de cada uno
+     Pedir a Claude Code el prototipo de la semana 1 (visor, miniaturas y guardado seguro)
+     Hacer una prueba rápida de OCR con Vision sobre 5 escaneos en español e inglés
+     Elegir nombre buscable en la App Store (que incluya "PDF")
+     Decidir el orden frente a la app de fotos: cuál va primero
+
+
+Fuentes
+     Precios de Acrobat Standard, Pro y Studio — Xodo
+     Acrobat Pro, precio mes a mes — Redress Compliance
+     Acrobat Standard sin OCR — Redress Compliance
+     PDF Expert, licencia de por vida — Macworld
+     PDF Expert, condiciones de la licencia — Macworld
+     PDFelement en la Mac App Store
+
+
+
+                                                                                          Page 6 of 7
+Plan MVP: editor de PDF sencillo para Mac
+
+
+
+
+     UPDF, precio y OCR fuera de App Store — PCWorld
+
+
+
+
+                                                       Page 7 of 7
+
