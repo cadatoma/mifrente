@@ -14,3 +14,16 @@ ACTUALIZACIÓN DEL USUARIO: estas 4 apps NO son sus apps principales. No centrar
 - Planes en estudio (no construidos): editor PDF sencillo para Mac ($29.99) y app de mejora de fotos con IA para Mac ($59). Ver reports/ en el repositorio.
 - El desarrollador dice tener 10+ apps publicadas; solo estas 4 tienen web pública conocida. Ventas "casi nulas".
 - Ninguna de las 4 apareció en búsquedas web de apps.apple.com por nombre (posible problema de indexación/visibilidad).
+
+===== Catálogo completo publicado (según informe de ventas de App Store Connect, sept. 2026)
+Evitar choques con estas apps del desarrollador:
+- Orejita (Entertainment, iPhone) — su app con más descargas
+- Aprueba: Examen de Licencia (Education; examen de licencia de conducir, República Dominicana) + IAP "Aprueba Pro" y "CDL Pro"
+- Texas Electrician License Exam (Education)
+- Licensed: Cosmetology Exam (Education)
+- ScrubCert: Medical Assistant (Education)
+- Tidebook: NOAA Tide Charts (Weather)
+- Tipstack: Tips & Hours Tracker (Finance)
+- CadaToma: Recordar Pastillas (Medical)
+- (con web pero sin movimiento en el informe: Daywitness, AxleSet)
+Patrón: varias apps de preparación de exámenes de licencia profesional. Las que cobran convierten; el problema principal es el poco tráfico.
